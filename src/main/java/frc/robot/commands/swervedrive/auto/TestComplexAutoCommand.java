@@ -23,7 +23,9 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.RepeatCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Arm.Arm;
 import frc.robot.Arm.Intake;
+import frc.robot.Arm.command.ArmCommand;
 import frc.robot.Arm.command.ShootCommand;
 import frc.robot.Constants.Auton;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
@@ -31,7 +33,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class TestComplexAutoCommand extends SequentialCommandGroup {
-    public TestComplexAutoCommand(SwerveSubsystem swerve, Intake intake) {
+    public TestComplexAutoCommand(SwerveSubsystem swerve, Intake intake, Arm arm) {
         // add the subsystems to the requirements of the command
         // the scheduler will prevent two commands that require the same subsystem from being scheduled simultaneously
         addRequirements(swerve, intake);
@@ -67,6 +69,7 @@ public class TestComplexAutoCommand extends SequentialCommandGroup {
 
             // zero the gyro to correct orientation
             new InstantCommand(swerve::zeroGyro)
+            //new InstantCommand()
         );
     }
 }
