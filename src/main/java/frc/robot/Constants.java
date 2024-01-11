@@ -52,13 +52,13 @@ public final class Constants
 
   public static final class Arm
     {
-        public static final int armMasterMoter = 9;
+        public static final int armMasterMoter = 15;
         public static final int armSlaveMotor = 16;
         
     }
 
     public static final class Shooter
     {
-        public static final int shooterMotorID = 15;
+        public static final int shooterMotorID = 9;
     }
 }

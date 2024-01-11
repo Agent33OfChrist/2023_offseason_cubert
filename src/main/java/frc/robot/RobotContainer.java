@@ -18,12 +18,12 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Arm.Arm;
 import frc.robot.Arm.Intake;
 import frc.robot.Arm.NamedPose;
-import frc.robot.Arm.command.ArmCommand;
+import frc.robot.Arm.command.ClimbDown;
+import frc.robot.Arm.command.ClimbUp;
 import frc.robot.Arm.command.IntakeCommand;
 import frc.robot.Arm.command.ShootCommand;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.swervedrive.auto.Autos;
-import frc.robot.commands.swervedrive.auto.TestComplexAutoCommand;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDrive;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteFieldDrive;
 import frc.robot.commands.swervedrive.drivebase.TeleopDrive;
@@ -59,7 +59,7 @@ public class RobotContainer
   public RobotContainer(PowerDistribution pd)
   {
 
-    s_Arm = new Arm(NamedPose.Home);
+    s_Arm = new Arm();
     s_Intake = new Intake();
     powerBoard = pd;
 
@@ -105,16 +105,13 @@ public class RobotContainer
 
     //Xbox controlls for arm and intake
 
-    Trigger homePos = new Trigger(() -> operatorXbox.getRawButton(7));
-        homePos.onTrue(new InstantCommand(()->ArmCommand.PlotPathAndSchedule(NamedPose.Home, s_Arm,powerBoard)));
+    Trigger climbUpButton = new Trigger(()->operatorXbox.getRawButton(6));
+        climbUpButton.whileTrue(new ClimbUp(s_Arm));
 
-    Trigger floorPos = new Trigger(() -> operatorXbox.getRawButton(8));
-        floorPos.onTrue(new InstantCommand(()->ArmCommand.PlotPathAndSchedule(NamedPose.FloorPick, s_Arm,powerBoard)));
+    Trigger climbDownButton = new Trigger(()->operatorXbox.getRawButton(5));
+        climbDownButton.whileTrue(new ClimbDown(s_Arm));
 
-    Trigger shootPos = new Trigger(() -> operatorXbox.getRawButton(1));
-        shootPos.onTrue(new InstantCommand(()->ArmCommand.PlotPathAndSchedule(NamedPose.Shoot, s_Arm,powerBoard)));
-
-    Trigger intakeButton = new Trigger(()-> operatorXbox.getRawButton(2));
+    Trigger intakeButton = new Trigger(()->operatorXbox.getRawButton(2));
         intakeButton.whileTrue(new IntakeCommand(s_Intake));
 
     Trigger shootButton = new Trigger(()->operatorXbox.getRawButton(3));
@@ -127,12 +124,12 @@ public class RobotContainer
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand()
+  /* public Command getAutonomousCommand()
   {
     // An example command will be run in autonomous
     //return Autos.exampleAuto(drivebase, s_Intake);
     return new TestComplexAutoCommand(drivebase, s_Intake);
-  }
+  } */
 
   public void setDriveMode()
   {

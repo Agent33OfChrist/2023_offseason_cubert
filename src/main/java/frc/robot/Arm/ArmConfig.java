@@ -25,6 +25,10 @@ public final class ArmConfig
         public static final double ffValue = 0;
         
         public static final double maxPower = 0.9;
+        
+        //climberspeeds
+        public static final double forwardSpeed = 0.25;
+        public static final double reverseSpeed = -0.25;
     }
 
 }

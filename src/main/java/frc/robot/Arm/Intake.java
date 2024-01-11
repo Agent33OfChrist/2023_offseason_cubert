@@ -37,4 +37,8 @@ public class Intake extends SubsystemBase
     {
         intakeMotor.set(IntakeConfig.shootSpeed);
     }
+
+    
+
+
 }
